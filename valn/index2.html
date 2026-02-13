@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budeš můj Valentýn?</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff9ecf, #ff4d6d);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    text-align: center;
+}
+
+h1 {
+    font-size: 28px;
+    color: white;
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+#ano {
+    background: white;
+    color: #ff4d6d;
+    font-weight: bold;
+}
+
+#ne {
+    background: black;
+    color: white;
+    position: absolute;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+
+.srdce {
+    position: absolute;
+    color: white;
+    animation: padani 5s linear infinite;
+}
+
+@keyframes padani {
+    0% { transform: translateY(-100px); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
+
+img {
+    max-width: 250px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+</style>
+</head>
+
+<body>
+    <div class="container" id="container">
+    <!-- GIF nad nadpis -->
+    <img src="spongebob-squarepants-begging.gif" alt="Valentýn GIF">
+
+<h1>Budeš můj Valentýn? 💖</h1>
+
+<div>
+    <button id="ano">Ano 💘</button>
+    <button id="ne">Ne 🙄</button>
+</div>
+
+<script>
+const ano = document.getElementById("ano");
+const ne = document.getElementById("ne");
+
+// FUNKCE PRO UTÍKÁNÍ
+function moveButton() {
+    const maxX = window.innerWidth - ne.offsetWidth;
+    const maxY = window.innerHeight - ne.offsetHeight;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    ne.style.left = randomX + "px";
+    ne.style.top = randomY + "px";
+}
+
+// Na PC reaguje na hover
+ne.addEventListener("mouseover", moveButton);
+
+// Na mobilu reaguje na dotyk
+ne.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveButton();
+});
+
+ano.addEventListener("click", function() {
+
+    // 🔥 SEM VLOŽ URL NA TVŮJ GIF
+    const gifURL = "kiss.gif";
+
+    document.body.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;">
+            <img src="${gifURL}" alt="gif">
+            <h1 style="color:white;">YESSSS! 💖 Já věděl, že řekneš ANO, že mi stále miluješ ♥ 🥰🤩😍😘💗</h1>
+        </div>
+    `;
+});
+
+// padající srdíčka
+setInterval(() => {
+    const srdce = document.createElement("div");
+    srdce.classList.add("srdce");
+    srdce.innerHTML = "💖";
+    srdce.style.left = Math.random() * 100 + "vw";
+    srdce.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(srdce);
+
+    setTimeout(() => {
+        srdce.remove();
+    }, 5000);
+}, 300);
+</script>
+
+</body>
+</html>
